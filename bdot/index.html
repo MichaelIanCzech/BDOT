@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<link rel="stylesheet" type="text/css" href="styl.css">
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	
+	<script src="./drogi.js"></script>
+	<script src="./jeziora.js"></script>
+	<script src="./rogowo.js"></script>
+	<script src="./budynki.js"></script>
+	<script src="./lasy.js"></script>
+	<script src="./krzewy.js"></script>
+	<script src="./linia_energetyczna.js"></script>
+	<script src="./linia_telekomunikacyjna.js"></script>
+	<script src="./plac.js"></script>
+	<script src="./przemyslowo_gospodarcze.js"></script>
+	<script src="./rezerwat.js"></script>
+	<script src="./rip.js"></script>
+	<script src="./row.js"></script>
+	<script src="./rzeki.js"></script>
+	<script src="./trawy.js"></script>
+	<script src="./uprawa trwala.js"></script>
+	<script src="./wyrobisko_zwalowisko.js"></script>
+	<script src="./oswiata.js"></script>
+	<script src="./sport.js"></script>
+	<script src="./handlowo_uslugowy.js"></script>
+	<script src="./hotelarstwo.js"></script>
+	<script src="./komunikacja.js"></script>
+	<script src="./miasta.js"></script>
+	<script src="./wsie.js"></script>
+	<script src="./osady.js"></script>
+	
+	
+	
+	<script src="./leaflet-polygon.fillPattern.js"></script>
+
+</head>
+
+<body>
+
+<div id="map"></div>
+
+
+
+<script>
+
+var map = L.map('map').setView([52.72950767287065, 17.65343374985965], 11);
+
+/*stopka*/
+
+map.attributionControl.addAttribution('Dane z BDOT10k, autor Michał Czech');
+
+function styl_drogi(feature){
+
+	if("0010_127" == feature.properties.x_kodKarto){
+	
+		return {
+			weight: 0.3,
+			opacity: 1,
+			color: '#510205'
+		
+		};
+	
+	}
+	else{
+	/*drogi zbiorcze*/
+		return{
+		
+			weight: 1,
+			opacity: 1,
+			outline: '"0.2" solid "#510205"',
+			color: '#ffffff'
+		
+		};
+	
+	}
+
+
+}
+
+function styl_jezioro(feature){
+
+	if("0010_601" == feature.properties.x_kodKarto){
+	
+		return {
+			weight: 0.2,
+			opacity: 1,
+			color: '#59d9ff',
+			fillColor: '#d1ffff',
+			fillOpacity: 1
+		
+		};
+	
+	}
+	else{
+	
+		return{
+		
+			weight: 2,
+			opacity: 1,
+			color: 'white'
+		
+		};
+	
+	}
+
+
+}
+
+function styl_rogowo(feature){
+
+	if("0010_505" == feature.properties.x_kodKarto10k){
+	
+		return{
+		
+			weight: 0.6,
+			opacity:1,
+			color: '#cc1aff',
+			fill: false
+		
+		
+		};
+	
+	
+	}
+	if("0010_505_2" == feature.properties.x_kodKarto10k){
+	
+		return{
+		
+			weight: 4.4,
+			opacity: 0.7,
+			color: '#ffd1ff',
+			fill: false
+		
+		
+		
+		};
+	
+	}
+
+}
+
+function styl_budynki(feature){
+
+	if("0010_318_1" == feature.properties.x_kodKarto){
+	
+		return{
+			weight: 0.4,
+			opacity: 1,
+			color: '#000000',
+			fillColor:'#ce4c00',
+			fillOpacity: 1		
+		
+		};
+	
+	
+	}
+	else if("0010_325_1" == feature.properties.x_kodKarto){
+	
+	
+		return{
+			weight: 0.2,
+			opacity: 1,
+			color: '#000000',
+			fillColor:'#b0bfbf',
+			fillOpacity: 1	
+		
+		
+		};
+	
+	}
+	/**/
+	else if("0010_317_1" == feature.properties.x_kodKarto){
+	
+	
+		return{
+			weight: 0.4,
+			opacity: 1,
+			color: '#000000',
+			fillColor:'#ce4c00',
+			fillOpacity: 1		
+		
+		
+		};
+	
+	}
+	
+	else if("0010_337" == feature.properties.x_kodKarto){
+	
+	
+		return{
+			weight: 0.2,
+			opacity: 1,
+			color: '#000000',
+			fillColor:'#8ce399',
+			fillOpacity: 1	
+		
+		
+		};
+	
+	}
+	
+	else{
+	
+		return{
+		
+			opacity: 0
+		
+		};
+	
+	}
+
+}
+
+function styl_las(feature){
+
+	if("0010_703" == feature.properties.x_kodKarto){
+	
+		return{
+		
+		fill: 'url(./0010_703.svg)',
+		stroke: false
+		
+		};
+	
+	}
+
+	else if("0010_704" == feature.properties.x_kodKarto){
+	
+		return{
+		
+		fill: 'url(./0010_704.svg)',
+		stroke: false
+		};
+	
+	}
+	
+	else if("0010_705" == feature.properties.x_kodKarto){
+	
+		return{
+		
+		fill: 'url(./0010_705.svg)',
+		stroke: false
+		};
+	
+	}
+	
+	else if("0010_709" == feature.properties.x_kodKarto){
+	
+		return{
+		
+		fill: 'url(./0010_709.svg)',
+		stroke: false
+		};
+	
+	}
+	
+	else if("0010_710" == feature.properties.x_kodKarto){
+	
+		return{
+		
+		fill: 'url(./0010_710.svg)',
+		stroke: false
+		};
+	
+	}
+	
+	else{
+	
+		return{
+		
+			opacity: 0,
+			fill: false
+		
+		};
+	
+	}
+
+}
+
+function styl_krzewy(feature){
+
+	if("0010_713" == feature.properties.x_kodKarto){
+	
+		return{
+		weight: 1.6,
+		fill:'url(./0010_714.svg)',
+		stroke: false
+		};
+	
+	}
+	
+	else{
+	
+		return{
+		
+			opacity: 0,
+			fill:false
+		
+		};
+	
+	}
+
+}
+
+function styl_energ(feature){
+
+
+	if("0010_444" == feature.properties.x_kodKarto){
+	
+		return{
+		weight: 0.2,
+		color: '#333333',
+		opacity: 1
+		};
+	
+	}
+	
+	else{
+	
+		return{
+		
+			opacity: 0,
+			fill: false
+		
+		};
+	
+	}
+
+
+
+
+}
+
+function styl_tele(feature){
+
+
+	if("0010_449" == feature.properties.x_kodKarto){
+	
+		return{
+		weight: 0.2,
+		color: '#000000',
+		opacity: 1
+		};
+	
+	}
+	
+	else{
+	
+		return{
+		
+			opacity: 0,
+			fill: false
+		
+		};
+	
+	}
+
+
+
+
+}
+
+function styl_plac(feature){
+
+	
+	if("0010_140" == feature.properties.x_kodKarto){
+	
+		return{
+		weight: 0.2,
+		fillColor: '#000000',
+		color: '#510205',
+		opacity: 1
+		};
+	
+	}
+	
+	else{
+	
+		return{
+		
+			opacity: 0,
+			fill: false
+		
+		};
+	
+	}
+
+}
+
+function styl_przem(feature){
+
+	
+	if("0010_401" == feature.properties.x_kodKarto){
+	
+		return{
+		weight: 0.2,
+		fillColor: '#dee0ff',
+		color: '#000000',
+		opacity: 1
+		};
+	
+	}
+	
+	else{
+	
+		return{
+		
+			opacity: 0,
+			fill: false
+		
+		};
+	
+	}
+
+
+}
+
+function styl_rezerwat(feature){
+
+	
+	if("0010_508_1" == feature.properties.x_kodKarto){
+	
+		return{
+		weight: 0.5,
+		color: '#3ded1a',
+		fill:false,
+		opacity: 1
+		};
+	
+	}
+	
+	else{
+	
+		return{
+		
+			opacity: 0,
+			fill: false
+		
+		};
+	
+	}
+
+
+}
+
+function styl_rip(feature){
+
+	if("0010_345_1" == feature.properties.x_kodKarto){
+	
+		return{
+		opacity: 1,
+		fill: 'url(./0010_344_1.svg)',
+		stroke: false
+		};
+	
+	}
+	
+	else{
+	
+		return{
+		
+			opacity: 0,
+			fill: false
+		
+		};
+	
+	}
+	
+
+
+}
+
+function styl_row(feature){
+
+	
+	if("0010_606" == feature.properties.x_kodKarto){
+	
+		if(feature.properties.szerokosc < 1.5 ){
+		
+			return{
+			
+				width: 0.2,
+				color: '#59d9ff',
+				opacity: 1
+			
+			};
+		
+		}
+		
+		else if(feature.properties.szerokosc >= 1.5 && feature.properties.szerokosc <2.5){
+		
+			return{
+			
+			width: 0.4,
+			color: '#59d9ff',
+			opacity: 1
+			
+			};
+		
+		}
+		else if(feature.properties.szerokosc >= 2.5 && feature.properties.szerokosc <3.5){
+			
+			return{
+			
+			width: 0.6,
+			color: '#59d9ff',
+			opacity: 1
+			
+			};
+			
+		}
+		else if(feature.properties.szerokosc >= 3.5 && feature.properties.szerokosc <4.5){
+			
+			return{
+			
+			width: 0.8,
+			color: '#59d9ff',
+			opacity: 1
+			
+			};
+			
+		}
+		else if(feature.properties.szerokosc >= 4.5 && feature.properties.szerokosc <=5){
+			
+			return{
+			
+			width: 1,
+			color: '#59d9ff',
+			opacity: 1
+			
+			};
+			
+		}
+	
+	}
+	
+	else{
+	
+		return{
+		
+			opacity: 0,
+			fill: false
+		
+		};
+	
+	}
+
+
+}
+
+function styl_rzeki(feature){
+
+	
+	if("0010_606" == feature.properties.x_kodKarto){
+	
+		if(feature.properties.szerokosc < 1.5 ){
+		
+			return{
+			
+				width: 0.2,
+				color: '#59d9ff',
+				opacity: 1
+			
+			};
+		
+		}
+		
+		else if(feature.properties.szerokosc >= 1.5 && feature.properties.szerokosc <2.5){
+		
+			return{
+			
+			width: 0.4,
+			color: '#59d9ff',
+			opacity: 1
+			
+			};
+		
+		}
+		else if(feature.properties.szerokosc >= 2.5 && feature.properties.szerokosc <3.5){
+			
+			return{
+			
+			width: 0.6,
+			color: '#59d9ff',
+			opacity: 1
+			
+			};
+			
+		}
+		else if(feature.properties.szerokosc >= 3.5 && feature.properties.szerokosc <4.5){
+			
+			return{
+			
+			width: 0.8,
+			color: '#59d9ff',
+			opacity: 1
+			
+			};
+			
+		}
+		else if(feature.properties.szerokosc >= 4.5 && feature.properties.szerokosc <=5){
+			
+			return{
+			
+			width: 1,
+			color: '#59d9ff',
+			opacity: 1
+			
+			};
+			
+		}
+	
+	}
+	
+	else{
+	
+		return{
+		
+			opacity: 0,
+			fill: false
+		
+		};
+	
+	}
+
+
+}
+
+function styl_trawy(feature){
+
+	if("0010_723" == feature.properties.x_kodKarto){
+	
+	return{
+	
+	opacity: 1,
+	fill: 'url(./0010_723.svg)',
+	stroke: false
+	
+	
+	};
+	
+	}
+	
+	else{
+	
+		return{
+		
+			opacity: 0,
+			stroke: false,
+			fill: false
+		
+		};
+	
+	}
+	
+}
+
+function styl_uprawy(feature){
+
+	if("0010_718" == feature.properties.x_kodKarto){
+	
+	return{
+	
+	opacity: 1,
+	fill: 'url(./0010_718.svg)',
+	stroke: false
+	
+	
+	};
+	
+	}
+	
+	else if("0010_719" == feature.properties.x_kodKarto){
+	
+	return{
+	
+	opacity: 1,
+	fill: 'url(./0010_719.svg)',
+	stroke: false
+	
+	
+	};
+	
+	}
+	
+	else{
+	
+		return{
+		
+			opacity: 0,
+			stroke: false,
+			fill: false
+		
+		};
+	
+	}
+	
+}
+
+function styl_wyrobisko(feature){
+
+	if("0010_737" == feature.properties.x_kodKarto){
+	
+	return{
+	
+	opacity: 1,
+	fill: 'url(./0010_737.svg)',
+	stroke: false
+	
+	
+	};
+	
+	}
+	
+	else{
+	
+		return{
+		
+			opacity: 0,
+			stroke: false,
+			fill: false
+		
+		};
+	
+	}
+	
+}
+
+function styl_oswiata(feature){
+	
+	return{
+	weight: 0.2,
+	color: '#000000',
+	fillColor: '#63101f',
+	opacity: 1
+	};
+	
+	
+
+}
+
+function styl_sport(feature){
+	
+	return{
+	weight: 0.2,
+	color: '#000000',
+	fillColor: '#63101f',
+	opacity: 1
+	};
+	
+	
+
+}
+
+function styl_hotelarstwo(feature){
+	
+	return{
+	weight: 0.2,
+	color: '#000000',
+	fillColor: '#63101f',
+	opacity: 1
+	};
+	
+	
+
+}
+
+function styl_handel(feature){
+	
+	return{
+	weight: 0.2,
+	color: '#000000',
+	fillColor: '#63101f',
+	opacity: 1
+	};
+	
+	
+
+}
+
+function styl_komunikacja(feature){
+	
+	return{
+	fill: 'url(./0010_413.svg)',
+	stroke: false
+	};
+	
+	
+
+}
+
+function styl_miasta(feature){
+	
+	return{
+	opacity:0,
+	color: '#000000'
+	};
+	
+	
+
+}
+
+function styl_wsie(feature){
+	
+	return{
+	opacity:0,
+	color: '#000000'
+	};
+	
+	
+
+}
+
+function styl_osady(feature){
+	
+	return{
+	opacity:0,
+	color: '#000000'	
+	};
+	
+	
+
+}
+
+var rogowo = L.geoJson(rogowo, {style: styl_rogowo, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var drogi = L.geoJson(drogi, {style: styl_drogi, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var jeziora = L.geoJson(jeziora, {style: styl_jezioro, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var budynki = L.geoJson(budynki, {style: styl_budynki, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var lasy = L.geoJson(lasy, {style: styl_las, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var krzewy = L.geoJson(krzewy, {style: styl_krzewy, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var linia_energetyczna = L.geoJson(linia_energetyczna, {style: styl_energ, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var linia_telekomunikacyjna = L.geoJson(linia_telekomunikacyjna, {style: styl_tele, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var plac = L.geoJson(plac, {style: styl_plac, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var przemyslowo_gospodarcze = L.geoJson(przemyslowo_gospodarcze, {style: styl_przem, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var rezerwat = L.geoJson(rezerwat, {style: styl_rezerwat, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var rip = L.geoJson(rip, {style: styl_rip, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var row = L.geoJson(row, {style: styl_row, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var rzeki = L.geoJson(rzeki, {style: styl_rzeki, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var trawy = L.geoJson(trawy, {style: styl_trawy, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var uprawa = L.geoJson(uprawa, {style: styl_uprawy, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var wyrobisko_zwalowisko = L.geoJson(wyrobisko_zwalowisko, {style: styl_wyrobisko, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var oswiata = L.geoJson(oswiata, {style: styl_oswiata, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var sport = L.geoJson(sport, {style: styl_sport, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var hotelarstwo = L.geoJson(hotelarstwo, {style: styl_hotelarstwo, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var handel = L.geoJson(handlowo, {style: styl_handel, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+
+var komunikacja = L.geoJson(komunikacja, {style: styl_komunikacja, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+	}}}).addTo(map);
+	
+
+var miasta = L.geoJson(miasta, {style: styl_miasta, pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, {radius:1});
+    },onEachFeature:function onEachFeature(feature, layer){
+	
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+		
+		layer.bindTooltip(
+	
+		''+feature.properties.nazwa,
+		{permanent: true,direction: "center", className: "miasta"}
+		).openTooltip();
+	
+	}}});
+	
+
+var wsie = L.geoJson(wsie, {style: styl_wsie, pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, {radius:1});
+    }, onEachFeature:function onEachFeature(feature, layer){
+
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+	
+		layer.bindTooltip(
+	
+		''+feature.properties.nazwa,
+		{permanent: true,direction: "center", className: "wsie", offset: L.point({ x: 0, y:10 })}
+		).openTooltip();
+	
+	}}}).addTo(map);
+	
+
+var osady = L.geoJson(osady, {style: styl_osady,pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, {radius:1});
+    }, onEachFeature:function onEachFeature(feature, layer){
+	
+	if(feature.properties && feature.properties.gml_id){
+	
+		layer.bindPopup(	'<b>GML ID:</b>' + feature.properties.gml_id + '<br>' +
+							'<b>lokalny ID:</b>' + feature.properties.lokalnyID + '<br>'+
+							'<b>x_kodKarto:</b>' + feature.properties.x_kodKarto	
+		);
+		
+		layer.bindTooltip(
+	
+		''+feature.properties.nazwa,
+		{permanent: true,direction: "center", className: "osady", offset: L.point({ x: 0, y:20 })}
+		).openTooltip();
+	
+	}}}).addTo(map);
+
+var warstwy ={
+"Rogowo": rogowo,
+"Drogi": drogi,
+"Jeziora": jeziora,
+"Budynki": budynki,
+"Lasy": lasy,
+"Krzewy": krzewy,
+"Linia Energetyczna": linia_energetyczna,
+"Linia Telekomunikacyjna": linia_telekomunikacyjna,
+"Place": plac,
+"Teren przemysłowo-gospodarczy": przemyslowo_gospodarcze,
+"Rezerwaty": rezerwat,
+"Cmentarze": rip,
+"Rowy": row,
+"Rzeki": rzeki,
+"Roślinność trawiasta": trawy,
+"Sady i ogródki": uprawa,
+"Wyrobiska i zwałowiska": wyrobisko_zwalowisko,
+"Szkoły": oswiata,
+"Obiekty sportowe": sport,
+"Hotele": hotelarstwo,
+"Kompleksy handlowo-usługowe": handel,
+"Stacje paliw": komunikacja,
+"Wsie": wsie,
+"Osady": osady
+
+};
+var e =0; 
+
+var f = L.control.layers(e, warstwy).addTo(map);
+
+f.addOverlay(miasta, 'Miasta');
+
+//measure toll
+
+L.Control.Measure = L.Control.extend({
+    options: {
+        position: 'topleft'
+    },
+
+    initialize: function (options) {
+        L.Util.setOptions(this, options);
+
+        this._enabled = false;
+        this._container = null;
+        this._button = null;
+        this._buttonD = null;
+        this._map = null;
+
+        this._features = new L.FeatureGroup();
+        this._markerList = [];
+
+        this._startPoint = null;
+        this._endPoint = null;
+        this._line = null;
+    },
+
+    onAdd: function (map) {
+        this._map = map;
+        this._features.addTo(map);
+
+        this._container = L.DomUtil.create('div', 'leaflet-control-measure leaflet-bar leaflet-control');
+        this._button = L.DomUtil.create('a', 'leaflet-bar-part', this._container);
+        this._button.href = '#';
+        this._button.innerHTML = 'M';
+        this._button.title = 'Measure';
+
+        L.DomEvent
+            .on(this._button, 'click', L.DomEvent.stopPropagation)
+            .on(this._button, 'mousedown', L.DomEvent.stopPropagation)
+            .on(this._button, 'dblclick', L.DomEvent.stopPropagation)
+            .on(this._button, 'click', L.DomEvent.preventDefault)
+            .on(this._button, 'click', this._onClick, this);
+
+        return this._container;
+    },
+
+    _enable: function() {
+        this._startPoint = null;
+        this._endPoint = null;
+        this._line = null;
+
+        this._features.clearLayers();
+        this._markerList = [];
+
+        this._enabled = true;
+        L.DomUtil.addClass(this._button, 'leaflet-control-measure-enabled');
+        this._map.on('click', this._onMapClick, this);
+    },
+    _disable: function() {
+        this._enabled = false;
+        L.DomUtil.removeClass(this._button, 'leaflet-control-measure-enabled');
+        this._map.off('click', this._onMapClick, this);
+    },
+
+    _onClick: function() {
+        if (this._enabled) this._disable();
+        else               this._enable();
+    },
+
+    _onMapClick: function(e) {
+        var marker = new L.Marker(e.latlng, { draggable: true });
+        marker.bindPopup('Lng: ' + e.latlng.lng.toFixed(6) + '<br />Lat: ' + e.latlng.lat.toFixed(6));
+        marker.on('drag', this._onMarkerDrag, this);
+        marker.on('dragend', this._onMarkerDragEnd, this);
+
+        this._features.addLayer(marker);
+        this._markerList.push(marker);
+
+        if (this._startPoint === null) {
+            this._startPoint = e.latlng;
+
+        }
+        else if (this._endPoint === null) {
+            this._endPoint = e.latlng;
+
+            this._line = new L.Polyline([ this._startPoint, this._endPoint ], { color: 'black', opacity: 0.5, stroke: true });
+            this._features.addLayer(this._line);
+
+            var distance = this._startPoint.distanceTo(this._endPoint);
+            var sz  = 'Distance: ' + (distance > 50000 ? (distance/1000).toFixed(2) + ' km.' : distance.toFixed(2) + ' m.');
+            this._line.bindPopup(sz).openPopup();
+
+            this._disable();
+        }
+    },
+
+    _onMarkerDrag: function(e) {
+        var marker = e.target;
+        var i = this._markerList.indexOf(marker);
+
+        var listLatng = this._line.getLatLngs();
+        listLatng[i] = marker.getLatLng();
+        this._line.setLatLngs(listLatng);
+
+        if (i == 0)
+            this._startPoint = marker.getLatLng();
+        else if (i == (this._markerList.length - 1))
+            this._endPoint = marker.getLatLng();
+    },
+    _onMarkerDragEnd: function(e) {
+        var distance = this._startPoint.distanceTo(this._endPoint);
+        var sz  = 'Distance: ' + (distance > 50000 ? (distance/1000).toFixed(2) + ' km.' : distance.toFixed(2) + ' m.');
+        this._line.bindPopup(sz).openPopup();
+    }
+});
+
+L.control.measure = function(options) {
+    return new L.Control.Measure(options);
+};
+
+L.Map.mergeOptions({
+    measureControl: false
+});
+
+L.Map.addInitHook(function() {
+    if (this.options.measureControl) {
+        this.measureControl = new L.Control.Measure();
+        this.addControl(this.measureControl);
+    }
+});
+
+L.control.measure().addTo(map);
+
+//mouse position
+
+L.Control.MousePosition = L.Control.extend({
+  options: {
+    position: 'bottomright',
+    separator: ' : ',
+    emptyString: 'Mouse not detected',
+    lngFirst: false,
+    numDigits: 5,
+    lngFormatter: undefined,
+    latFormatter: undefined,
+    prefix: ""
+  },
+
+  onAdd: function (map) {
+    this._container = L.DomUtil.create('div', 'leaflet-control-mouseposition');
+    L.DomEvent.disableClickPropagation(this._container);
+    map.on('mousemove', this._onMouseMove, this);
+    this._container.innerHTML=this.options.emptyString;
+    return this._container;
+  },
+
+  onRemove: function (map) {
+    map.off('mousemove', this._onMouseMove)
+  },
+
+  _onMouseMove: function (e) {
+    var lng = this.options.lngFormatter ? this.options.lngFormatter(e.latlng.lng) : L.Util.formatNum(e.latlng.lng, this.options.numDigits);
+    var lat = this.options.latFormatter ? this.options.latFormatter(e.latlng.lat) : L.Util.formatNum(e.latlng.lat, this.options.numDigits);
+    var value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
+    var prefixAndValue = this.options.prefix + ' ' + value;
+    this._container.innerHTML = prefixAndValue;
+  }
+
+});
+
+L.Map.mergeOptions({
+    positionControl: false
+});
+
+L.Map.addInitHook(function () {
+    if (this.options.positionControl) {
+        this.positionControl = new L.Control.MousePosition();
+        this.addControl(this.positionControl);
+    }
+});
+
+L.control.mousePosition = function (options) {
+    return new L.Control.MousePosition(options);
+};
+
+L.control.mousePosition().addTo(map);
+
+/*graphic scale*/
+
+L.Control.GraphicScale=L.Control.extend({options:{position:"bottomright",updateWhenIdle:false,minUnitWidth:30,maxUnitsWidth:240,fill:false,showSubunits:false,doubleLine:false,labelPlacement:"auto"},onAdd:function(map){this._map=map;this._possibleUnitsNum=[3,4];this._possibleUnitsNumLen=this._possibleUnitsNum.length;this._possibleDivisions=[1,.5,.25,.2];this._possibleDivisionsLen=this._possibleDivisions.length;this._possibleDivisionsSub={1:{num:2,division:.5},.5:{num:5,division:.1},.25:{num:5,division:.05},.2:{num:2,division:.1}};this._scaleInner=this._buildScale();this._scale=this._addScale(this._scaleInner);this._setStyle(this.options);map.on(this.options.updateWhenIdle?"moveend":"move",this._update,this);map.whenReady(this._update,this);return this._scale},onRemove:function(map){map.off(this.options.updateWhenIdle?"moveend":"move",this._update,this)},_addScale:function(scaleInner){var scale=L.DomUtil.create("div");scale.className="leaflet-control-graphicscale";scale.appendChild(scaleInner);return scale},_setStyle:function(options){var classNames=["leaflet-control-graphicscale-inner"];if(options.fill&&options.fill!=="nofill"){classNames.push("filled");classNames.push("filled-"+options.fill)}if(options.showSubunits){classNames.push("showsubunits")}if(options.doubleLine){classNames.push("double")}classNames.push("labelPlacement-"+options.labelPlacement);this._scaleInner.className=classNames.join(" ")},_buildScale:function(){var root=document.createElement("div");root.className="leaflet-control-graphicscale-inner";var subunits=L.DomUtil.create("div","subunits",root);var units=L.DomUtil.create("div","units",root);this._units=[];this._unitsLbls=[];this._subunits=[];for(var i=0;i<5;i++){var unit=this._buildDivision(i%2===0);units.appendChild(unit);this._units.push(unit);var unitLbl=this._buildDivisionLbl();unit.appendChild(unitLbl);this._unitsLbls.push(unitLbl);var subunit=this._buildDivision(i%2===1);subunits.appendChild(subunit);this._subunits.unshift(subunit)}this._zeroLbl=L.DomUtil.create("div","label zeroLabel");this._zeroLbl.innerHTML="0";this._units[0].appendChild(this._zeroLbl);this._subunitsLbl=L.DomUtil.create("div","label subunitsLabel");this._subunitsLbl.innerHTML="?";this._subunits[4].appendChild(this._subunitsLbl);return root},_buildDivision:function(fill){var item=L.DomUtil.create("div","division");var l1=L.DomUtil.create("div","line");item.appendChild(l1);var l2=L.DomUtil.create("div","line2");item.appendChild(l2);if(fill)l1.appendChild(L.DomUtil.create("div","fill"));if(!fill)l2.appendChild(L.DomUtil.create("div","fill"));return item},_buildDivisionLbl:function(){var itemLbl=L.DomUtil.create("div","label divisionLabel");return itemLbl},_update:function(){var bounds=this._map.getBounds(),centerLat=bounds.getCenter().lat,halfWorldMeters=6378137*Math.PI*Math.cos(centerLat*Math.PI/180),dist=halfWorldMeters*(bounds.getNorthEast().lng-bounds.getSouthWest().lng)/180,size=this._map.getSize();if(size.x>0){this._updateScale(dist,this.options)}},_updateScale:function(maxMeters,options){var scale=this._getBestScale(maxMeters,options.minUnitWidth,options.maxUnitsWidth);this._render(scale)},_getBestScale:function(maxMeters,minUnitWidthPx,maxUnitsWidthPx){var possibleUnits=this._getPossibleUnits(maxMeters,minUnitWidthPx,this._map.getSize().x);var possibleScales=this._getPossibleScales(possibleUnits,maxUnitsWidthPx);possibleScales.sort(function(scaleA,scaleB){return scaleB.score-scaleA.score});var scale=possibleScales[0];scale.subunits=this._getSubunits(scale);return scale},_getSubunits:function(scale){var subdivision=this._possibleDivisionsSub[scale.unit.unitDivision];var subunit={};subunit.subunitDivision=subdivision.division;subunit.subunitMeters=subdivision.division*(scale.unit.unitMeters/scale.unit.unitDivision);subunit.subunitPx=subdivision.division*(scale.unit.unitPx/scale.unit.unitDivision);var subunits={subunit:subunit,numSubunits:subdivision.num,total:subdivision.num*subunit.subunitMeters};return subunits},_getPossibleScales:function(possibleUnits,maxUnitsWidthPx){var scales=[];var minTotalWidthPx=Number.POSITIVE_INFINITY;var fallbackScale;for(var i=0;i<this._possibleUnitsNumLen;i++){var numUnits=this._possibleUnitsNum[i];var numUnitsScore=(this._possibleUnitsNumLen-i)*.5;for(var j=0;j<possibleUnits.length;j++){var unit=possibleUnits[j];var totalWidthPx=unit.unitPx*numUnits;var scale={unit:unit,totalWidthPx:totalWidthPx,numUnits:numUnits,score:0};var totalWidthPxScore=1-(maxUnitsWidthPx-totalWidthPx)/maxUnitsWidthPx;totalWidthPxScore*=3;var score=unit.unitScore+numUnitsScore+totalWidthPxScore;if(unit.unitDivision===.25&&numUnits===3||unit.unitDivision===.5&&numUnits===3||unit.unitDivision===.25&&numUnits===5){score-=2}scale.score=score;if(totalWidthPx<maxUnitsWidthPx){scales.push(scale)}if(totalWidthPx<minTotalWidthPx){minTotalWidthPx=totalWidthPx;fallbackScale=scale}}}if(!scales.length)scales.push(fallbackScale);return scales},_getPossibleUnits:function(maxMeters,minUnitWidthPx,mapWidthPx){var exp=(Math.floor(maxMeters)+"").length;var unitMetersPow;var units=[];for(var i=exp;i>0;i--){unitMetersPow=Math.pow(10,i);for(var j=0;j<this._possibleDivisionsLen;j++){var unitMeters=unitMetersPow*this._possibleDivisions[j];var unitPx=mapWidthPx*(unitMeters/maxMeters);if(unitPx<minUnitWidthPx){return units}units.push({unitMeters:unitMeters,unitPx:unitPx,unitDivision:this._possibleDivisions[j],unitScore:this._possibleDivisionsLen-j})}}return units},_render:function(scale){this._renderPart(scale.unit.unitPx,scale.unit.unitMeters,scale.numUnits,this._units,this._unitsLbls);this._renderPart(scale.subunits.subunit.subunitPx,scale.subunits.subunit.subunitMeters,scale.subunits.numSubunits,this._subunits);var subunitsDisplayUnit=this._getDisplayUnit(scale.subunits.total);this._subunitsLbl.innerHTML=""+subunitsDisplayUnit.amount+subunitsDisplayUnit.unit},_renderPart:function(px,meters,num,divisions,divisionsLbls){var displayUnit=this._getDisplayUnit(meters);for(var i=0;i<this._units.length;i++){var division=divisions[i];if(i<num){division.style.width=px+"px";division.className="division"}else{division.style.width=0;division.className="division hidden"}if(!divisionsLbls)continue;var lbl=divisionsLbls[i];var lblClassNames=["label","divisionLabel"];if(i<num){var lblText=(i+1)*displayUnit.amount;if(i===num-1){lblText+=displayUnit.unit;lblClassNames.push("labelLast")}else{lblClassNames.push("labelSub")}lbl.innerHTML=lblText}lbl.className=lblClassNames.join(" ")}},_getDisplayUnit:function(meters){var displayUnit=meters<1e3?"m":"km";return{unit:displayUnit,amount:displayUnit==="km"?meters/1e3:meters}}});L.Map.mergeOptions({graphicScaleControl:false});L.Map.addInitHook(function(){if(this.options.graphicScaleControl){this.graphicScaleControl=new L.Control.GraphicScale;this.addControl(this.graphicScaleControl)}});L.control.graphicScale=function(options){return new L.Control.GraphicScale(options)};
+var graphicScale = L.control.graphicScale(['fill']).addTo(map);
+
+/*home button*/
+
+(function(){
+
+// This is for grouping buttons into a bar
+// takes an array of `L.easyButton`s and
+// then the usual `.addTo(map)`
+L.Control.EasyBar = L.Control.extend({
+
+  options: {
+    position:       'topleft',  // part of leaflet's defaults
+    id:             null,       // an id to tag the Bar with
+    leafletClasses: true        // use leaflet classes?
+  },
+
+
+  initialize: function(buttons, options){
+
+    if(options){
+      L.Util.setOptions( this, options );
+    }
+
+    this._buildContainer();
+    this._buttons = [];
+
+    for(var i = 0; i < buttons.length; i++){
+      buttons[i]._bar = this;
+      buttons[i]._container = buttons[i].button;
+      this._buttons.push(buttons[i]);
+      this.container.appendChild(buttons[i].button);
+    }
+
+  },
+
+
+  _buildContainer: function(){
+    this._container = this.container = L.DomUtil.create('div', '');
+    this.options.leafletClasses && L.DomUtil.addClass(this.container, 'leaflet-bar easy-button-container leaflet-control');
+    this.options.id && (this.container.id = this.options.id);
+  },
+
+
+  enable: function(){
+    L.DomUtil.addClass(this.container, 'enabled');
+    L.DomUtil.removeClass(this.container, 'disabled');
+    this.container.setAttribute('aria-hidden', 'false');
+    return this;
+  },
+
+
+  disable: function(){
+    L.DomUtil.addClass(this.container, 'disabled');
+    L.DomUtil.removeClass(this.container, 'enabled');
+    this.container.setAttribute('aria-hidden', 'true');
+    return this;
+  },
+
+
+  onAdd: function () {
+    return this.container;
+  },
+
+  addTo: function (map) {
+    this._map = map;
+
+    for(var i = 0; i < this._buttons.length; i++){
+      this._buttons[i]._map = map;
+    }
+
+    var container = this._container = this.onAdd(map),
+        pos = this.getPosition(),
+        corner = map._controlCorners[pos];
+
+    L.DomUtil.addClass(container, 'leaflet-control');
+
+    if (pos.indexOf('bottom') !== -1) {
+      corner.insertBefore(container, corner.firstChild);
+    } else {
+      corner.appendChild(container);
+    }
+
+    return this;
+  }
+
+});
+
+L.easyBar = function(){
+  var args = [L.Control.EasyBar];
+  for(var i = 0; i < arguments.length; i++){
+    args.push( arguments[i] );
+  }
+  return new (Function.prototype.bind.apply(L.Control.EasyBar, args));
+};
+
+// L.EasyButton is the actual buttons
+// can be called without being grouped into a bar
+L.Control.EasyButton = L.Control.extend({
+
+  options: {
+    position:  'topleft',       // part of leaflet's defaults
+
+    id:        null,            // an id to tag the button with
+
+    type:      'replace',       // [(replace|animate)]
+                                // replace swaps out elements
+                                // animate changes classes with all elements inserted
+
+    states:    [],              // state names look like this
+                                // {
+                                //   stateName: 'untracked',
+                                //   onClick: function(){ handle_nav_manually(); };
+                                //   title: 'click to make inactive',
+                                //   icon: 'fa-circle',    // wrapped with <a>
+                                // }
+
+    leafletClasses:   true,     // use leaflet styles for the button
+    tagName:          'button',
+  },
+
+
+
+  initialize: function(icon, onClick, title, id){
+
+    // clear the states manually
+    this.options.states = [];
+
+    // add id to options
+    if(id != null){
+      this.options.id = id;
+    }
+
+    // storage between state functions
+    this.storage = {};
+
+    // is the last item an object?
+    if( typeof arguments[arguments.length-1] === 'object' ){
+
+      // if so, it should be the options
+      L.Util.setOptions( this, arguments[arguments.length-1] );
+    }
+
+    // if there aren't any states in options
+    // use the early params
+    if( this.options.states.length === 0 &&
+        typeof icon  === 'string' &&
+        typeof onClick === 'function'){
+
+      // turn the options object into a state
+      this.options.states.push({
+        icon: icon,
+        onClick: onClick,
+        title: typeof title === 'string' ? title : ''
+      });
+    }
+
+    // curate and move user's states into
+    // the _states for internal use
+    this._states = [];
+
+    for(var i = 0; i < this.options.states.length; i++){
+      this._states.push( new State(this.options.states[i], this) );
+    }
+
+    this._buildButton();
+
+    this._activateState(this._states[0]);
+
+  },
+
+  _buildButton: function(){
+
+    this.button = L.DomUtil.create(this.options.tagName, '');
+
+    if (this.options.tagName === 'button') {
+        this.button.setAttribute('type', 'button');
+    }
+
+    if (this.options.id ){
+      this.button.id = this.options.id;
+    }
+
+    if (this.options.leafletClasses){
+      L.DomUtil.addClass(this.button, 'easy-button-button leaflet-bar-part leaflet-interactive');
+    }
+
+    // don't let double clicks and mousedown get to the map
+    L.DomEvent.addListener(this.button, 'dblclick', L.DomEvent.stop);
+    L.DomEvent.addListener(this.button, 'mousedown', L.DomEvent.stop);
+    L.DomEvent.addListener(this.button, 'mouseup', L.DomEvent.stop);
+
+    // take care of normal clicks
+    L.DomEvent.addListener(this.button,'click', function(e){
+      L.DomEvent.stop(e);
+      this._currentState.onClick(this, this._map ? this._map : null );
+      this._map && this._map.getContainer().focus();
+    }, this);
+
+    // prep the contents of the control
+    if(this.options.type == 'replace'){
+      this.button.appendChild(this._currentState.icon);
+    } else {
+      for(var i=0;i<this._states.length;i++){
+        this.button.appendChild(this._states[i].icon);
+      }
+    }
+  },
+
+
+  _currentState: {
+    // placeholder content
+    stateName: 'unnamed',
+    icon: (function(){ return document.createElement('span'); })()
+  },
+
+
+
+  _states: null, // populated on init
+
+
+
+  state: function(newState){
+
+    // when called with no args, it's a getter
+    if (arguments.length === 0) {
+      return this._currentState.stateName;
+    }
+
+    // activate by name
+    if(typeof newState == 'string'){
+
+      this._activateStateNamed(newState);
+
+    // activate by index
+    } else if (typeof newState == 'number'){
+
+      this._activateState(this._states[newState]);
+    }
+
+    return this;
+  },
+
+
+  _activateStateNamed: function(stateName){
+    for(var i = 0; i < this._states.length; i++){
+      if( this._states[i].stateName == stateName ){
+        this._activateState( this._states[i] );
+      }
+    }
+  },
+
+  _activateState: function(newState){
+
+    if( newState === this._currentState ){
+
+      // don't touch the dom if it'll just be the same after
+      return;
+
+    } else {
+
+      // swap out elements... if you're into that kind of thing
+      if( this.options.type == 'replace' ){
+        this.button.appendChild(newState.icon);
+        this.button.removeChild(this._currentState.icon);
+      }
+
+      if( newState.title ){
+        this.button.title = newState.title;
+      } else {
+        this.button.removeAttribute('title');
+      }
+
+      // update classes for animations
+      for(var i=0;i<this._states.length;i++){
+        L.DomUtil.removeClass(this._states[i].icon, this._currentState.stateName + '-active');
+        L.DomUtil.addClass(this._states[i].icon, newState.stateName + '-active');
+      }
+
+      // update classes for animations
+      L.DomUtil.removeClass(this.button, this._currentState.stateName + '-active');
+      L.DomUtil.addClass(this.button, newState.stateName + '-active');
+
+      // update the record
+      this._currentState = newState;
+
+    }
+  },
+
+  enable: function(){
+    L.DomUtil.addClass(this.button, 'enabled');
+    L.DomUtil.removeClass(this.button, 'disabled');
+    this.button.setAttribute('aria-hidden', 'false');
+    return this;
+  },
+
+  disable: function(){
+    L.DomUtil.addClass(this.button, 'disabled');
+    L.DomUtil.removeClass(this.button, 'enabled');
+    this.button.setAttribute('aria-hidden', 'true');
+    return this;
+  },
+
+  onAdd: function(map){
+    var bar = L.easyBar([this], {
+      position: this.options.position,
+      leafletClasses: this.options.leafletClasses
+    });
+    this._anonymousBar = bar;
+    this._container = bar.container;
+    return this._anonymousBar.container;
+  },
+
+  removeFrom: function (map) {
+    if (this._map === map)
+      this.remove();
+    return this;
+  },
+
+});
+
+L.easyButton = function(/* args will pass automatically */){
+  var args = Array.prototype.concat.apply([L.Control.EasyButton],arguments);
+  return new (Function.prototype.bind.apply(L.Control.EasyButton, args));
+};
+
+/*************************
+ *
+ * util functions
+ *
+ *************************/
+
+// constructor for states so only curated
+// states end up getting called
+function State(template, easyButton){
+
+  this.title = template.title;
+  this.stateName = template.stateName ? template.stateName : 'unnamed-state';
+
+  // build the wrapper
+  this.icon = L.DomUtil.create('span', '');
+
+  L.DomUtil.addClass(this.icon, 'button-state state-' + this.stateName.replace(/(^\s*|\s*$)/g,''));
+  this.icon.innerHTML = buildIcon(template.icon);
+  this.onClick = L.Util.bind(template.onClick?template.onClick:function(){}, easyButton);
+}
+
+function buildIcon(ambiguousIconString) {
+
+  var tmpIcon;
+
+  // does this look like html? (i.e. not a class)
+  if( ambiguousIconString.match(/[&;=<>"']/) ){
+
+    // if so, the user should have put in html
+    // so move forward as such
+    tmpIcon = ambiguousIconString;
+
+  // then it wasn't html, so
+  // it's a class list, figure out what kind
+  } else {
+      ambiguousIconString = ambiguousIconString.replace(/(^\s*|\s*$)/g,'');
+      tmpIcon = L.DomUtil.create('span', '');
+
+      if( ambiguousIconString.indexOf('fa-') === 0 ){
+        L.DomUtil.addClass(tmpIcon, 'fa '  + ambiguousIconString)
+      } else if ( ambiguousIconString.indexOf('glyphicon-') === 0 ) {
+        L.DomUtil.addClass(tmpIcon, 'glyphicon ' + ambiguousIconString)
+      } else {
+        L.DomUtil.addClass(tmpIcon, /*rollwithit*/ ambiguousIconString)
+      }
+
+      // make this a string so that it's easy to set innerHTML below
+      tmpIcon = tmpIcon.outerHTML;
+  }
+
+  return tmpIcon;
+}
+
+})();
+
+var home_zoom = {
+  lat: 52.72950767287065,
+  lng: 17.65343374985965,
+  zoom: 11
+}; 
+
+L.easyButton('<b>H</b>',function(btn,map){
+  map.setView([home_zoom.lat, home_zoom.lng], home_zoom.zoom);
+},'Default Zoom').addTo(map);
+
+</script>
+
+</body>
+
+</html>
